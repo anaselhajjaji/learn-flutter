@@ -25,5 +25,14 @@ class Person {
     }
 }
 
+// We can use a shortcut in the previous class
+class Person {
+    String name;
+    int age;
+
+    Person({@required this.name, this.age = 30});
+}
+
+// To create a person
 var person = new Person(name: 'Anas', age: 40);
 ```
