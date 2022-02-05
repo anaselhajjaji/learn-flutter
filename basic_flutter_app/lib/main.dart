@@ -14,19 +14,21 @@ void main() {
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-//TODO: State is a generic class, is attached to the widget and will be used to store the state. So widget will be recreated but state will be persistent.
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
-  void answerTheQuestion() {
+/*TODO: State is a generic class, is attached to the widget and will be used to store the state. So widget will be recreated but state will be persistent.
+the '_' is a dart syntax to make the class private so can be used only inside the file main.dart.
+*/
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0; //TODO: use '_' for private property
+  void _answerTheQuestion() { //TODO: use '_' for private method
     setState(() {
       /*TODO: Need to call that in order to trigger the change, otherwise the widget won't be recreated. 
       It will just call the build() method of the widget. Flutter is intelligent and will not render the entire widget tree for that.
       */
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
   }
 
@@ -51,13 +53,13 @@ class MyAppState extends State<MyApp> {
           //TODO: Column is a layout where we can put a list of widgets
           children: <Widget>[
             Text(questions
-                .elementAt(questionIndex)), // or questions[questionIndex]
+                .elementAt(_questionIndex)), // or questions[questionIndex]
             ElevatedButton(
-                onPressed: answerTheQuestion, child: Text('Answer 1')),
+                onPressed: _answerTheQuestion, child: Text('Answer 1')),
             ElevatedButton(
-                onPressed: answerTheQuestion, child: Text('Answer 2')),
+                onPressed: _answerTheQuestion, child: Text('Answer 2')),
             ElevatedButton(
-                onPressed: answerTheQuestion, child: Text('Answer 3')),
+                onPressed: _answerTheQuestion, child: Text('Answer 3')),
           ],
         ),
       ),
