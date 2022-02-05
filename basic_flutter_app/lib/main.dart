@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'; // TODO: this package will contain all the material widgets that we'll need
 
 import './question.dart';
+import './answer.dart';
 
 // TODO: can be done this way as well: void main() => runApp(MyApp());
 void main() {
@@ -60,12 +61,9 @@ class _MyAppState extends State<MyApp> {
             Question(
                 questionTxt: questions
                     .elementAt(_questionIndex)), // or questions[questionIndex]
-            ElevatedButton(
-                onPressed: _answerTheQuestion, child: Text('Answer 1')),
-            ElevatedButton(
-                onPressed: _answerTheQuestion, child: Text('Answer 2')),
-            ElevatedButton(
-                onPressed: _answerTheQuestion, child: Text('Answer 3')),
+            Answer(_answerTheQuestion),
+            Answer(_answerTheQuestion),
+            Answer(_answerTheQuestion),
           ],
         ),
       ),
