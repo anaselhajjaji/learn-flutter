@@ -43,8 +43,19 @@ class _MyAppState extends State<MyApp> {
     //TODO: method that we need to override when using StatelessWidget (or StatefulWidget) class
 
     var questions = [
-      'What\'s your name?',
-      'How old are you?',
+      //TODO: we'll use a map
+      {
+        'questionKey': 'What\'s your name?',
+        'answersKey': ['Anas', 'Mike', 'Tom', 'Leonard']
+      },
+      {
+        'questionKey': 'How old are you?',
+        'answersKey': ['20', '30', '40', '50', '60']
+      },
+      {
+        'questionKey': 'Where do you live?',
+        'answersKey': ['Canada', 'USA', 'Morocco']
+      }
     ];
     /*TODO: that's the app coming from material package that will do all the initializations needed for the root widget.
       home: argument will contain the widget to put inside the MaterialApp widget.
@@ -60,10 +71,15 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             Question(
                 questionTxt: questions
-                    .elementAt(_questionIndex)), // or questions[questionIndex]
-            Answer(_answerTheQuestion),
-            Answer(_answerTheQuestion),
-            Answer(_answerTheQuestion),
+                    .elementAt(_questionIndex)['questionKey']
+                    .toString()), // or questions[questionIndex]
+            /*TODO: transform list element to another type, 
+            '...' is called spread operator, it will put elements inside the list instead of having a list of list
+            */
+            ...(questions[_questionIndex]['answersKey'] as List<String>)
+                .map((answer) {
+              return Answer(_answerTheQuestion, answer);
+            }).toList()
           ],
         ),
       ),
