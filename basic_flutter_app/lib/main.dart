@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart'; // TODO: this package will contain all the material widgets that we'll need
 
+import './question.dart';
+
 // TODO: can be done this way as well: void main() => runApp(MyApp());
 void main() {
   //TODO: entrypoint of our application, should be present in the main dart file
@@ -8,9 +10,11 @@ void main() {
       MyApp());
 }
 
-//TODO: that's the root widget of our app, a widget should extend: StatelessWidget or StatefulWidget
-// StatelessWidget: widget that can't have state, cannot change internally after been built. Can change only externally (ex. input data)
-// StatefulWidget: can be changed internally after been built, will get rendered when local state changes
+/*TODO: that's the root widget of our app, a widget should extend: StatelessWidget or StatefulWidget
+  StatelessWidget: widget that can't have state, cannot change internally after been built. Can change only externally (ex. input data)
+  StatefulWidget: can be changed internally after been built, will get rendered when local state changes
+  Convention: one widget per file.
+*/
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -23,7 +27,8 @@ the '_' is a dart syntax to make the class private so can be used only inside th
 */
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0; //TODO: use '_' for private property
-  void _answerTheQuestion() { //TODO: use '_' for private method
+  void _answerTheQuestion() {
+    //TODO: use '_' for private method
     setState(() {
       /*TODO: Need to call that in order to trigger the change, otherwise the widget won't be recreated. 
       It will just call the build() method of the widget. Flutter is intelligent and will not render the entire widget tree for that.
@@ -52,8 +57,9 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           //TODO: Column is a layout where we can put a list of widgets
           children: <Widget>[
-            Text(questions
-                .elementAt(_questionIndex)), // or questions[questionIndex]
+            Question(
+                questionTxt: questions
+                    .elementAt(_questionIndex)), // or questions[questionIndex]
             ElevatedButton(
                 onPressed: _answerTheQuestion, child: Text('Answer 1')),
             ElevatedButton(
