@@ -7,9 +7,16 @@
 - The devcontainer creates automatically a flutter test project, after starting the emulator just do: `flutter run`
 - To run linux version of the application run: `flutter run -d linux`
 
-## Some dart language notes
+# Documentation Approach
 
-### Function arguments and named arguments
+Every sample app contains some `// TODO: comment` to highlight and explain every modification.
+
+- [First basic app](./basic_flutter_app)
+- ...
+
+# Some dart language notes
+
+## Function arguments and named arguments
 
 ```dart
 class Person {
