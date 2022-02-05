@@ -43,3 +43,25 @@ class Person {
 // To create a person
 var person = new Person(name: 'Anas', age: 40);
 ```
+
+## Different constructors
+
+```dart
+class Person {
+    String name;
+    int age;
+
+    Person({@required String name, int age = 30}) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Person.veryOld(this.name) {
+        age = 80;
+    }
+}
+
+// To create a person
+var person1 = new Person(name: 'Anas', age: 40);
+var person2 = Person.veryOld('Mike');
+```
