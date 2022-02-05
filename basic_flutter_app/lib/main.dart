@@ -22,7 +22,10 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   var questionIndex = 0;
   void answerTheQuestion() {
-    setState(() { //TODO: Need to call that in order to trigger the change, otherwise the widget won't be recreated.
+    setState(() {
+      /*TODO: Need to call that in order to trigger the change, otherwise the widget won't be recreated. 
+      It will just call the build() method of the widget. Flutter is intelligent and will not render the entire widget tree for that.
+      */
       questionIndex = questionIndex + 1;
     });
   }
