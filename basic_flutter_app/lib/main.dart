@@ -68,22 +68,26 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Basic Flutter App'),
         ),
-        body: Column(
-          //TODO: Column is a layout where we can put a list of widgets
-          children: <Widget>[
-            Question(
-                questionTxt: questions
-                    .elementAt(_questionIndex)['questionKey']
-                    .toString()), // or questions[questionIndex]
-            /*TODO: transform list element to another type, 
+        body: _questionIndex < questions.length
+            ? Column(
+                //TODO: Column is a layout where we can put a list of widgets, I used if and else in following format: condition ? then : else
+                children: <Widget>[
+                  Question(
+                      questionTxt: questions
+                          .elementAt(_questionIndex)['questionKey']
+                          .toString()), // or questions[questionIndex]
+                  /*TODO: transform list element to another type, 
             '...' is called spread operator, it will put elements inside the list instead of having a list of list
             */
-            ...(questions[_questionIndex]['answersKey'] as List<String>)
-                .map((answer) {
-              return Answer(_answerTheQuestion, answer);
-            }).toList()
-          ],
-        ),
+                  ...(questions[_questionIndex]['answersKey'] as List<String>)
+                      .map((answer) {
+                    return Answer(_answerTheQuestion, answer);
+                  }).toList()
+                ],
+              )
+            : Center(
+                child: Text(
+                    'Well done!')), //TODO: center will center horizontally and vertically the child
       ),
     );
   }
