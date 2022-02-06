@@ -33,20 +33,38 @@ class _MyAppState extends State<MyApp> {
     //TODO: we'll use a map
     {
       'questionKey': 'What\'s your name?',
-      'answersKey': ['Anas', 'Mike', 'Tom', 'Leonard']
+      'answersKey': [
+        {'text': 'Anas', 'score': 5},
+        {'text': 'Mike', 'score': 2},
+        {'text': 'Dan', 'score': 1},
+        {'text': 'Leonard', 'score': 0}
+      ]
     },
     {
       'questionKey': 'How old are you?',
-      'answersKey': ['20', '30', '40', '50', '60']
+      'answersKey': [
+        {'text': '40', 'score': 5},
+        {'text': '30', 'score': 2},
+        {'text': '20', 'score': 1},
+        {'text': '10', 'score': 0}
+      ]
     },
     {
       'questionKey': 'Where do you live?',
-      'answersKey': ['Canada', 'USA', 'Morocco']
+      'answersKey': [
+        {'text': 'Canada', 'score': 5},
+        {'text': 'Morocco', 'score': 2},
+        {'text': 'France', 'score': 1}
+      ]
     }
   ];
 
+  var _totalScore = 0;
+
   //TODO: use '_' for private method
-  void _answerTheQuestion() {
+  void _answerTheQuestion(int score) {
+    _totalScore += score;
+
     /*TODO: Need to call that in order to trigger the change, otherwise the widget won't be recreated. 
       It will just call the build() method of the widget. Flutter is intelligent and will not render the entire widget tree for that.
       */
@@ -74,7 +92,7 @@ class _MyAppState extends State<MyApp> {
                   answerTheQuestion: _answerTheQuestion,
                   questionIndex: _questionIndex,
                 )
-              : Result()),
+              : Result(score: _totalScore)),
     );
   }
 }
