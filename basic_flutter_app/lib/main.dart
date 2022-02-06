@@ -73,6 +73,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   @override //TODO: decorator, not required but we can added it to make our code readable and cleaner (best practice)
   Widget build(BuildContext context) {
     //TODO: method that we need to override when using StatelessWidget (or StatefulWidget) class
@@ -92,7 +99,7 @@ class _MyAppState extends State<MyApp> {
                   answerTheQuestion: _answerTheQuestion,
                   questionIndex: _questionIndex,
                 )
-              : Result(score: _totalScore)),
+              : Result(score: _totalScore, resetHandler: _resetQuiz)),
     );
   }
 }
