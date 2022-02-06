@@ -7,6 +7,10 @@
 - The devcontainer creates automatically a flutter test project, after starting the emulator just do: `flutter run`
 - To run linux version of the application run: `flutter run -d linux`
 
+# Useful tools
+
+- Web based dart editor than can be used to practice dart language: [DartPad](https://dartpad.dev)
+
 # Documentation Approach
 
 Every sample app contains some `// TODO: comment` to highlight and explain every modification.
