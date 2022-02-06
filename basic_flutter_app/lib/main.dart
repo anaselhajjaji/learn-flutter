@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart'; // TODO: this package will contain all the material widgets that we'll need
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 // TODO: can be done this way as well: void main() => runApp(MyApp());
 void main() {
@@ -28,7 +28,7 @@ the '_' is a dart syntax to make the class private so can be used only inside th
 */
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0; //TODO: use '_' for private property
-  final questions = const [
+  final _questions = const [
     //TODO: with const here we cannot add for example a new element to the list
     //TODO: we'll use a map
     {
@@ -64,31 +64,17 @@ class _MyAppState extends State<MyApp> {
     */
     return MaterialApp(
       home: Scaffold(
-        //TODO: Scaffold gives a basic design/style to the Widget tree
-        appBar: AppBar(
-          title: Text('Basic Flutter App'),
-        ),
-        body: _questionIndex < questions.length
-            ? Column(
-                //TODO: Column is a layout where we can put a list of widgets, I used if and else in following format: condition ? then : else
-                children: <Widget>[
-                  Question(
-                      questionTxt: questions
-                          .elementAt(_questionIndex)['questionKey']
-                          .toString()), // or questions[questionIndex]
-                  /*TODO: transform list element to another type, 
-            '...' is called spread operator, it will put elements inside the list instead of having a list of list
-            */
-                  ...(questions[_questionIndex]['answersKey'] as List<String>)
-                      .map((answer) {
-                    return Answer(_answerTheQuestion, answer);
-                  }).toList()
-                ],
-              )
-            : Center(
-                child: Text(
-                    'Well done!')), //TODO: center will center horizontally and vertically the child
-      ),
+          //TODO: Scaffold gives a basic design/style to the Widget tree
+          appBar: AppBar(
+            title: Text('Basic Flutter App'),
+          ),
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  questions: _questions,
+                  answerTheQuestion: _answerTheQuestion,
+                  questionIndex: _questionIndex,
+                )
+              : Result()),
     );
   }
 }
