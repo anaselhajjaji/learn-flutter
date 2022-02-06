@@ -28,12 +28,29 @@ the '_' is a dart syntax to make the class private so can be used only inside th
 */
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0; //TODO: use '_' for private property
+  final questions = const [
+    //TODO: with const here we cannot add for example a new element to the list
+    //TODO: we'll use a map
+    {
+      'questionKey': 'What\'s your name?',
+      'answersKey': ['Anas', 'Mike', 'Tom', 'Leonard']
+    },
+    {
+      'questionKey': 'How old are you?',
+      'answersKey': ['20', '30', '40', '50', '60']
+    },
+    {
+      'questionKey': 'Where do you live?',
+      'answersKey': ['Canada', 'USA', 'Morocco']
+    }
+  ];
+
+  //TODO: use '_' for private method
   void _answerTheQuestion() {
-    //TODO: use '_' for private method
-    setState(() {
-      /*TODO: Need to call that in order to trigger the change, otherwise the widget won't be recreated. 
+    /*TODO: Need to call that in order to trigger the change, otherwise the widget won't be recreated. 
       It will just call the build() method of the widget. Flutter is intelligent and will not render the entire widget tree for that.
       */
+    setState(() {
       _questionIndex = _questionIndex + 1;
     });
   }
@@ -42,21 +59,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     //TODO: method that we need to override when using StatelessWidget (or StatefulWidget) class
 
-    var questions = [
-      //TODO: we'll use a map
-      {
-        'questionKey': 'What\'s your name?',
-        'answersKey': ['Anas', 'Mike', 'Tom', 'Leonard']
-      },
-      {
-        'questionKey': 'How old are you?',
-        'answersKey': ['20', '30', '40', '50', '60']
-      },
-      {
-        'questionKey': 'Where do you live?',
-        'answersKey': ['Canada', 'USA', 'Morocco']
-      }
-    ];
     /*TODO: that's the app coming from material package that will do all the initializations needed for the root widget.
       home: argument will contain the widget to put inside the MaterialApp widget.
     */

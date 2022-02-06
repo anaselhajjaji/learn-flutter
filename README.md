@@ -65,3 +65,9 @@ class Person {
 var person1 = new Person(name: 'Anas', age: 40);
 var person2 = Person.veryOld('Mike');
 ```
+
+## final vs const
+
+Both can't change and the difference is: 
+- const: compiled time constant, locked at the moment when writing the code
+- final: It's a runtime constant value, it can be initialized after declaration (in constructor for example), locked once initialized at runtime
