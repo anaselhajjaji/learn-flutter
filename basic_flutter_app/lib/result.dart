@@ -20,6 +20,7 @@ class Result extends StatelessWidget {
         child: Text(
       resultText,
       style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+      textAlign: TextAlign.center,
     )); //TODO: center will center horizontally and vertically the child;
   }
 }
