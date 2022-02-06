@@ -10,6 +10,7 @@
 # Useful tools
 
 - Web based dart editor than can be used to practice dart language: [DartPad](https://dartpad.dev)
+- Flutter widgets [catalog](https://docs.flutter.dev/development/ui/widgets)
 
 # Documentation Approach
 
