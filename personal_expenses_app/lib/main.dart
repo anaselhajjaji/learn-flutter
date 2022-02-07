@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './transaction.dart';
 
@@ -54,7 +55,8 @@ class MyHomePage extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.purple, width: 2)),
                   padding: EdgeInsets.all(10),
-                  child: Text(tx.amount.toString(),
+                  child: Text(
+                      '\$${tx.amount}', //TODO: called string interpolation
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -70,7 +72,8 @@ class MyHomePage extends StatelessWidget {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      tx.date.toString(),
+                      //TODO: I used intl package that supports a lot of date formatting patterns
+                      DateFormat.yMMMd().format(tx.date),
                       style: TextStyle(color: Colors.grey),
                     )
                   ],
