@@ -5,16 +5,20 @@
     "version": "0.0.1",
     "configurations": [
         {
-            "name": "Flutter Web",
+            "name": "basic_flutter_app (Android)",
             "type": "dart",
             "request": "launch",
-            "program": "test_project/lib/main.dart",
-            "deviceId": "web-server",
-            // Setting for fixed web server port
-            "args": [
-                "--web-port",
-                "43567"
-            ],
+            "program": "basic_flutter_app/lib/main.dart",
+            "deviceId": "emulator-5554",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "basic_flutter_app (Linux)",
+            "type": "dart",
+            "request": "launch",
+            "program": "basic_flutter_app/lib/main.dart",
+            "deviceId": "linux",
+            "flutterMode": "debug"
         }
     ]
 }
