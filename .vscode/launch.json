@@ -11,6 +11,14 @@
             "program": "basic_flutter_app/lib/main.dart",
             "deviceId": "emulator-5554",
             "flutterMode": "debug"
+        },
+        {
+            "name": "basic_flutter_app (Linux)",
+            "type": "dart",
+            "request": "launch",
+            "program": "basic_flutter_app/lib/main.dart",
+            "deviceId": "linux",
+            "flutterMode": "debug"
         }
     ]
 }
