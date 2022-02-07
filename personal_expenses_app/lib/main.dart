@@ -37,52 +37,58 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Flutter App'),
       ),
-      body: Column(children: <Widget>[
-        Card(
-          //TODO: Card takes the size of the child widget or the parent that has width already set, we use Container to set the size of the card.
-          child: Container(
-              width: double.infinity, //TODO: take the maximum width
-              child: Text('Chart')),
-          elevation: 5,
-        ),
-        Column(
-          children: transactions.map((tx) {
-            //TODO: to build multiple widgets per transaction list we use map().
-            return Card(
-              child: Row(children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple, width: 2)),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                      '\$${tx.amount}', //TODO: called string interpolation
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple)),
-                ),
-                Column(
-                  //TODO: For a column crossAxisAlignment is from left to right and for a row it's from top to bottom
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      tx.title,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      body: Column(
+          //TODO: for a column the main axis is top to bottom and cross axis is left to right
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+                //TODO: take the maximum width
+                width: double.infinity,
+                //TODO: Card takes the size of the child widget or the parent that has width already set, we use Container to set the size of the card.
+                child: Card(
+                  child: Text('Chart'),
+                  elevation: 5,
+                )),
+            Column(
+              children: transactions.map((tx) {
+                //TODO: to build multiple widgets per transaction list we use map().
+                return Card(
+                  child: Row(children: <Widget>[
+                    Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.purple, width: 2)),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                          '\$${tx.amount}', //TODO: called string interpolation
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.purple)),
                     ),
-                    Text(
-                      //TODO: I used intl package that supports a lot of date formatting patterns
-                      DateFormat.yMMMd().format(tx.date),
-                      style: TextStyle(color: Colors.grey),
+                    Column(
+                      //TODO: For a column crossAxisAlignment is from left to right and for a row it's from top to bottom
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          tx.title,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          //TODO: I used intl package that supports a lot of date formatting patterns
+                          DateFormat.yMMMd().format(tx.date),
+                          style: TextStyle(color: Colors.grey),
+                        )
+                      ],
                     )
-                  ],
-                )
-              ]),
-            );
-          }).toList(),
-        ),
-      ]),
+                  ]),
+                );
+              }).toList(),
+            ),
+          ]),
     );
   }
 }
