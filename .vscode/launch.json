@@ -19,6 +19,22 @@
             "program": "basic_flutter_app/lib/main.dart",
             "deviceId": "linux",
             "flutterMode": "debug"
+        },
+        {
+            "name": "personal_expenses_app (Android)",
+            "type": "dart",
+            "request": "launch",
+            "program": "personal_expenses_app/lib/main.dart",
+            "deviceId": "emulator-5554",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "personal_expenses_app (Linux)",
+            "type": "dart",
+            "request": "launch",
+            "program": "personal_expenses_app/lib/main.dart",
+            "deviceId": "linux",
+            "flutterMode": "debug"
         }
     ]
 }
