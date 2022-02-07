@@ -17,6 +17,7 @@
 Every sample app contains some `// TODO: comment` to highlight and explain every modification.
 
 - [First basic app](./basic_flutter_app)
+- [Personal expenses app](./personal_expenses_app)
 - ...
 
 # Some dart language notes
