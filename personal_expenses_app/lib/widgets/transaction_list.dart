@@ -27,7 +27,7 @@ class TransactionList extends StatelessWidget {
                     border: Border.all(color: Colors.purple, width: 2)),
                 padding: EdgeInsets.all(10),
                 child: Text(
-                    '\$${transactions[itemIndex].amount}', //TODO: called string interpolation
+                    '\$${transactions[itemIndex].amount.toStringAsFixed(2)}', //TODO: called string interpolation and with fixed fraction of digits
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
