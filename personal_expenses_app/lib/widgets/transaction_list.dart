@@ -5,8 +5,10 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final void Function(String id) onDeleteTransaction;
 
-  TransactionList({required this.transactions});
+  TransactionList(
+      {required this.transactions, required this.onDeleteTransaction});
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +109,13 @@ class TransactionList extends StatelessWidget {
                       //TODO: I used intl package that supports a lot of date formatting patterns
                       DateFormat.yMMMd().format(transactions[itemIndex].date),
                       style: TextStyle(color: Colors.grey),
+                    ),
+                    //TODO: trailing can be used to add buttons to ListTile
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () =>
+                          onDeleteTransaction(transactions[itemIndex].id),
                     ),
                   ),
                 );

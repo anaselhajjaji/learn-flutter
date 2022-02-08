@@ -86,6 +86,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      //TODO: removeWhere is a good example for search and remove in a list
+      _transactions.removeWhere((transaction) => transaction.id == id);
+    });
+  }
+
   void _startAddNewTransaction(BuildContext ctx) {
     //TODO: to show bottom sheet
     showModalBottomSheet(
@@ -123,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 TransactionList(
                   transactions: _transactions,
+                  onDeleteTransaction: _deleteTransaction,
                 )
               ]),
         ),
