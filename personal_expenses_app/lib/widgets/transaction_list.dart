@@ -43,7 +43,8 @@ class TransactionList extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     transactions[itemIndex].title,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    // TODO: we can set here a font specifically to a text, we take the style from the theme
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
                     //TODO: I used intl package that supports a lot of date formatting patterns

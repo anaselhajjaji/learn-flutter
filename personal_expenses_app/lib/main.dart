@@ -14,16 +14,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData();
+    final ThemeData theme =
+        //TODO: this is how we set fonts in application
+        /*TODO: we need to use primarySwatch instead of primaryColor 
+          because primary swatch will generate the other colors coming from primary color */
+        ThemeData(
+            fontFamily: 'SourceCodePro',
+            primarySwatch: Colors.green,
+            // TODO: we can set here a theme for text (Small, Medium, Large)
+            textTheme: ThemeData.light().textTheme.copyWith(
+                    titleMedium: TextStyle(
+                  fontFamily: 'Quintessential',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                )),
+            //TODO: to set a font specifically to all the AppBars that will appear in the application
+            appBarTheme: AppBarTheme(
+              titleTextStyle: TextStyle(
+                fontFamily: 'Quintessential',
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ));
 
     return MaterialApp(
       title: 'Personal Expenses App',
       //TODO: to set the general theme of the application
       theme: theme.copyWith(
-          /*TODO: we need to use primarySwatch instead of primaryColor 
-          because primary swatch will generate the other colors coming from primary color */
-          colorScheme: theme.colorScheme
-              .copyWith(primary: Colors.green, secondary: Colors.red)),
+          /*TODO: this is how we set accent color, the property is deprecated in ThemeData */
+          colorScheme: theme.colorScheme.copyWith(secondary: Colors.red)),
       home: MyHomePage(),
     );
   }
@@ -69,7 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Flutter App'),
+          title: Text(
+            'Personal Expenses App',
+          ),
           //TODO: to add actions in app bar
           actions: [
             IconButton(
