@@ -12,9 +12,13 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      child: ListView(
-        children: transactions.map((tx) {
-          //TODO: to build multiple widgets per transaction list we use map().
+      /* TODO: the list view needs to know the height and the parent container we have here will give that information to the list view.
+      Two possible usages of listview:
+      - ListView(children: []): will act as a scrollable column so will render all the children widgets which is not performent at all
+      - ListView.builder(): will render only visible widgets and will recycle then while scrolling
+      */
+      child: ListView.builder(
+        itemBuilder: (ctx, itemIndex) {
           return Card(
             child: Row(children: <Widget>[
               Container(
@@ -23,7 +27,7 @@ class TransactionList extends StatelessWidget {
                     border: Border.all(color: Colors.purple, width: 2)),
                 padding: EdgeInsets.all(10),
                 child: Text(
-                    '\$${tx.amount}', //TODO: called string interpolation
+                    '\$${transactions[itemIndex].amount}', //TODO: called string interpolation
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -34,19 +38,20 @@ class TransactionList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    tx.title,
+                    transactions[itemIndex].title,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     //TODO: I used intl package that supports a lot of date formatting patterns
-                    DateFormat.yMMMd().format(tx.date),
+                    DateFormat.yMMMd().format(transactions[itemIndex].date),
                     style: TextStyle(color: Colors.grey),
                   )
                 ],
               )
             ]),
           );
-        }).toList(),
+        },
+        itemCount: transactions.length,
       ),
     );
   }
