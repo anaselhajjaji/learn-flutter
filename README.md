@@ -17,8 +17,8 @@
 
 Every sample app contains some `// TODO: comment` to highlight and explain every modification.
 
-- [First basic app](./basic_flutter_app)
-- [Personal expenses app](./personal_expenses_app)
+- Level 1: [First basic app](./basic_flutter_app)
+- Level 2: [Personal expenses app](./personal_expenses_app)
 - ...
 
 # Some dart language notes

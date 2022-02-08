@@ -51,7 +51,9 @@ class Chart extends StatelessWidget {
             //TODO: in a row the main axis alignement is from left to right
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: groupedTransactionsValues.map((data) {
-              //TODO: to force a bar to use the available, Flexible can help to distribute the size in a row or column
+              /*TODO: to force a bar to use the available, Flexible can help to distribute the size in a row or column
+              Expanded = Flixible with FlexFit.tight property
+              */
               return Flexible(
                 fit: FlexFit.tight,
                 child: ChartBar(
