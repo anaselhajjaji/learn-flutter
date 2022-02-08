@@ -28,21 +28,24 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Flutter App'),
       ),
-      body: Column(
-          //TODO: for a column the main axis is top to bottom and cross axis is left to right
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-                //TODO: take the maximum width
-                width: double.infinity,
-                //TODO: Card takes the size of the child widget or the parent that has width already set, we use Container to set the size of the card.
-                child: Card(
-                  child: Text('Chart'),
-                  elevation: 5,
-                )),
-            UserTransactions()
-          ]),
+      // This will make the view scrollable
+      body: SingleChildScrollView(
+        child: Column(
+            //TODO: for a column the main axis is top to bottom and cross axis is left to right
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                  //TODO: take the maximum width
+                  width: double.infinity,
+                  //TODO: Card takes the size of the child widget or the parent that has width already set, we use Container to set the size of the card.
+                  child: Card(
+                    child: Text('Chart'),
+                    elevation: 5,
+                  )),
+              UserTransactions()
+            ]),
+      ),
     );
   }
 }
