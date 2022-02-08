@@ -44,22 +44,25 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Row(
-          //TODO: in a row the main axis alignement is from left to right
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactionsValues.map((data) {
-            //TODO: to force a bar to use the available, Flexible can help to distribute the size in a row or column
-            return Flexible(
-              fit: FlexFit.tight,
-              child: ChartBar(
-                label: data['day'] as String,
-                spendingAmount: data['amount'] as double,
-                spendingPercentageOfTotal: totalSpending == 0.0
-                    ? 0.0
-                    : (data['amount'] as double) / totalSpending,
-              ),
-            );
-          }).toList()),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+            //TODO: in a row the main axis alignement is from left to right
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: groupedTransactionsValues.map((data) {
+              //TODO: to force a bar to use the available, Flexible can help to distribute the size in a row or column
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartBar(
+                  label: data['day'] as String,
+                  spendingAmount: data['amount'] as double,
+                  spendingPercentageOfTotal: totalSpending == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / totalSpending,
+                ),
+              );
+            }).toList()),
+      ),
     );
   }
 }
