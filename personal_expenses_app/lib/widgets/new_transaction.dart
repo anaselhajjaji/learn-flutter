@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+/*TODO: the reason why StatefulWidget is used instead of Stateless 
+ is to avoid loosing data in the modal bottom sheet, flutter needs that internally.
+ When we're loosing data it means that we may need StatefulWidget to keep that data.
+*/
+class NewTransaction extends StatefulWidget {
   final Function onAddNewTransaction;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   NewTransaction({Key? key, required this.onAddNewTransaction})
       : super(key: key);
+
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitTransaction() {
     final enteredTitle = titleController.text;
@@ -16,7 +27,11 @@ class NewTransaction extends StatelessWidget {
       return;
     }
 
-    onAddNewTransaction(enteredTitle, enteredAmount);
+    // TODO: to acceess widget properties from the state
+    widget.onAddNewTransaction(enteredTitle, enteredAmount);
+
+    // TODO: to close the bottom sheet after submiting the data
+    Navigator.of(context).pop();
   }
 
   @override

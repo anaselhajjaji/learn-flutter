@@ -14,11 +14,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
+
     return MaterialApp(
-      title: 'Flutter App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Personal Expenses App',
+      //TODO: to set the general theme of the application
+      theme: theme.copyWith(
+          /*TODO: we need to use primarySwatch instead of primaryColor 
+          because primary swatch will generate the other colors coming from primary color */
+          colorScheme: theme.colorScheme
+              .copyWith(primary: Colors.green, secondary: Colors.red)),
       home: MyHomePage(),
     );
   }

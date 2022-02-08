@@ -24,14 +24,18 @@ class TransactionList extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.purple, width: 2)),
+                    border: Border.all(
+                        //TODO: to use the primary color we need to get the current theme
+                        color: Theme.of(context).primaryColorDark,
+                        width: 2)),
                 padding: EdgeInsets.all(10),
                 child: Text(
                     '\$${transactions[itemIndex].amount.toStringAsFixed(2)}', //TODO: called string interpolation and with fixed fraction of digits
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: Colors.purple)),
+                        //TODO: to use the primary color we need to get the current theme
+                        color: Theme.of(context).primaryColorDark)),
               ),
               Column(
                 //TODO: For a column crossAxisAlignment is from left to right and for a row it's from top to bottom
