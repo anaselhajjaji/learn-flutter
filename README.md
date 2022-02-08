@@ -11,12 +11,14 @@
 
 - Web based dart editor than can be used to practice dart language: [DartPad](https://dartpad.dev)
 - Flutter widgets [catalog](https://docs.flutter.dev/development/ui/widgets)
+- Some free fonts from [Google Fonts](https://fonts.google.com/)
 
 # Documentation Approach
 
 Every sample app contains some `// TODO: comment` to highlight and explain every modification.
 
-- [First basic app](./basic_flutter_app)
+- Level 1: [First basic app](./basic_flutter_app)
+- Level 2: [Personal expenses app](./personal_expenses_app)
 - ...
 
 # Some dart language notes
