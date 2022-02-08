@@ -67,7 +67,7 @@ class _NewTransactionState extends State<NewTransaction> {
                       },*/
             ),
             TextButton(
-                onPressed: () => submitTransaction,
+                onPressed: () => submitTransaction(),
                 child: Text('Add Transaction'))
           ],
         ),
