@@ -105,19 +105,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO store the appBar in a an object so we can access it later to get the height
+    final appBar = AppBar(
+      title: Text(
+        'Personal Expenses App',
+      ),
+      //TODO: to add actions in app bar
+      actions: [
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: Icon(Icons.add),
+        )
+      ],
+    );
+
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Personal Expenses App',
-          ),
-          //TODO: to add actions in app bar
-          actions: [
-            IconButton(
-              onPressed: () => _startAddNewTransaction(context),
-              icon: Icon(Icons.add),
-            )
-          ],
-        ),
+        appBar: appBar,
         // This will make the view scrollable
         body: SingleChildScrollView(
           child: Column(
@@ -125,12 +128,27 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Chart(
-                  recentTransactions: _recentTransactions,
+                Container(
+                  //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+                  //TODO: MediaQuery.of(context).padding.top is the system status bar
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.3,
+                  child: Chart(
+                    recentTransactions: _recentTransactions,
+                  ),
                 ),
-                TransactionList(
-                  transactions: _transactions,
-                  onDeleteTransaction: _deleteTransaction,
+                Container(
+                  //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.7,
+                  child: TransactionList(
+                    transactions: _transactions,
+                    onDeleteTransaction: _deleteTransaction,
+                  ),
                 )
               ]),
         ),

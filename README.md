@@ -21,6 +21,14 @@ Every sample app contains some `// TODO: comment` to highlight and explain every
 - Level 2: [Personal expenses app](./personal_expenses_app)
 - ...
 
+# Some flutter notions
+
+## Responsive vs Adaptive
+
+Responsiveness is handling different sizes, examples: Portrait mode vs Landscape Mode, Tablet vs Desktop vs Phone ...\
+Adaptive is not an official terme but it means adapt the application to the platform UI guidelines, examples: Microsoft Fluent UI, iOS cupertino, Android Material Design ... 
+
+
 # Some dart language notes
 
 ## Function arguments and named arguments
