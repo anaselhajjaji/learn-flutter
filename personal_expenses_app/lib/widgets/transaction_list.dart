@@ -41,6 +41,7 @@ class TransactionList extends StatelessWidget {
           */
           : ListView.builder(
               itemBuilder: (ctx, itemIndex) {
+                /* OLD WAY
                 return Card(
                   child: Row(children: <Widget>[
                     Container(
@@ -78,6 +79,36 @@ class TransactionList extends StatelessWidget {
                       ],
                     )
                   ]),
+                );*/
+                //TODO: NEW WAY using ListTile
+                return Card(
+                  margin: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 5,
+                  ),
+                  elevation: 5,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(9),
+                        child: FittedBox(
+                          child: Text(
+                              '\$${transactions[itemIndex].amount.toStringAsFixed(2)}'),
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      transactions[itemIndex].title,
+                      // TODO: we can set here a font specifically to a text, we take the style from the theme
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    subtitle: Text(
+                      //TODO: I used intl package that supports a lot of date formatting patterns
+                      DateFormat.yMMMd().format(transactions[itemIndex].date),
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
                 );
               },
               itemCount: transactions.length,

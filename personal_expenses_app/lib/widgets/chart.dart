@@ -52,7 +52,7 @@ class Chart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: groupedTransactionsValues.map((data) {
               /*TODO: to force a bar to use the available, Flexible can help to distribute the size in a row or column
-              Expanded = Flixible with FlexFit.tight property
+              Expanded = Flixible with FlexFit.tight property, flex property remains important to distribute the size accross widgets
               */
               return Flexible(
                 fit: FlexFit.tight,
