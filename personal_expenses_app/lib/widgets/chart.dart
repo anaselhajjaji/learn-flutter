@@ -44,7 +44,8 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
-      child: Container(
+      //TODO: if we want just to add a padding so we can use Padding Widget instead of container
+      child: Padding(
         padding: EdgeInsets.all(10),
         child: Row(
             //TODO: in a row the main axis alignement is from left to right
