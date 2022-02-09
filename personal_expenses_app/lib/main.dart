@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -141,63 +143,70 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Scaffold(
-        appBar: _appBar,
-        // This will make the view scrollable
-        body: SingleChildScrollView(
-          child: Column(
-              //TODO: for a column the main axis is top to bottom and cross axis is left to right
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                // TODO: row will be rendered only if the orientation is landscape
-                if (_isLandscape)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Show Chart'),
-                      Switch(
-                          value: _showChart,
-                          onChanged: (value) {
-                            setState(() {
-                              _showChart = value;
-                            });
-                          })
-                    ],
+      appBar: _appBar,
+      // This will make the view scrollable
+      body: SingleChildScrollView(
+        child: Column(
+            //TODO: for a column the main axis is top to bottom and cross axis is left to right
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              // TODO: row will be rendered only if the orientation is landscape
+              if (_isLandscape)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Show Chart'),
+                    /*TODO some widgets are available on Android and iOS, to have a platform look and feel, 
+                      we use adaptive constructor but it's not available for all the widgets.*/
+                    Switch.adaptive(
+                        activeColor: Theme.of(context).colorScheme.secondary,
+                        value: _showChart,
+                        onChanged: (value) {
+                          setState(() {
+                            _showChart = value;
+                          });
+                        })
+                  ],
+                ),
+              if (!_isLandscape)
+                Container(
+                  //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+                  //TODO: MediaQuery.of(context).padding.top is the system status bar
+                  height: (_mediaQuery.size.height -
+                          _appBar.preferredSize.height -
+                          _mediaQuery.padding.top) *
+                      0.3,
+                  child: Chart(
+                    recentTransactions: _recentTransactions,
                   ),
-                if (!_isLandscape)
-                  Container(
-                    //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
-                    //TODO: MediaQuery.of(context).padding.top is the system status bar
-                    height: (_mediaQuery.size.height -
-                            _appBar.preferredSize.height -
-                            _mediaQuery.padding.top) *
-                        0.3,
-                    child: Chart(
-                      recentTransactions: _recentTransactions,
-                    ),
-                  ),
-                if (!_isLandscape) transactionListWidget,
-                if (_isLandscape)
-                  _showChart
-                      ? Container(
-                          //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
-                          //TODO: MediaQuery.of(context).padding.top is the system status bar
-                          height: (_mediaQuery.size.height -
-                                  _appBar.preferredSize.height -
-                                  _mediaQuery.padding.top) *
-                              0.7,
-                          child: Chart(
-                            recentTransactions: _recentTransactions,
-                          ),
-                        )
-                      : transactionListWidget
-              ]),
-        ),
-        //TODO: to add floating action button
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _startAddNewTransaction(context),
-        ));
+                ),
+              if (!_isLandscape) transactionListWidget,
+              if (_isLandscape)
+                _showChart
+                    ? Container(
+                        //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+                        //TODO: MediaQuery.of(context).padding.top is the system status bar
+                        height: (_mediaQuery.size.height -
+                                _appBar.preferredSize.height -
+                                _mediaQuery.padding.top) *
+                            0.7,
+                        child: Chart(
+                          recentTransactions: _recentTransactions,
+                        ),
+                      )
+                    : transactionListWidget
+            ]),
+      ),
+      //TODO: to add floating action button
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // TODO here we check on platform to render or not the floating action button
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => _startAddNewTransaction(context),
+            ),
+    );
   }
 }
