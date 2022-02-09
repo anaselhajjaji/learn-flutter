@@ -171,7 +171,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Show Chart'),
+                    Text(
+                      'Show Chart',
+                      //TODO: this will fix an issue for iOS, not able to use cupertinoApp (instead of materialapp) because it's limited
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                     /*TODO some widgets are available on Android and iOS, to have a platform look and feel, 
                       we use adaptive constructor but it's not available for all the widgets.*/
                     Switch.adaptive(
