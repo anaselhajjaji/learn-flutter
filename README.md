@@ -1,8 +1,8 @@
 # Instructions for Dev Environment
 
-- Devcontainer pre-configured to support: Android, Linux and Web (chrome).\
-- Uses Windows 11 Linux GUI Support.\
-- Tested under Windows 11 Build 22000 following the [official Linux GUI support documentation](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps).\
+- Devcontainer pre-configured to support: Android, Linux and Web (chrome).
+- Uses Windows 11 Linux GUI Support.
+- Tested under Windows 11 Build 22000 following the [official Linux GUI support documentation](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps).
 - To start the android emulator just do: `flutter emulators --launch android-emulator`
 - The devcontainer creates automatically a flutter test project, after starting the emulator just do: `flutter run`
 - To run linux version of the application run: `flutter run -d linux`
@@ -28,6 +28,12 @@ Every sample app contains some `// TODO: comment` to highlight and explain every
 Responsiveness is handling different sizes, examples: Portrait mode vs Landscape Mode, Tablet vs Desktop vs Phone ...\
 Adaptive is not an official terme but it means adapt the application to the platform UI guidelines, examples: Microsoft Fluent UI, iOS cupertino, Android Material Design ... 
 
+## Widget Lifecycle
+
+- Stateless Widget: Constructor() -> build()
+- Statefil Widget: 
+    - Constructor() -> initState() -> build() -> dispose()
+    - setState() called! -> didUpdateWidget() -> build -> dispose()
 
 # Some dart language notes
 

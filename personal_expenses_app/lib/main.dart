@@ -62,8 +62,36 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+/*TODO: with = mixin
+A mixin refers to the ability to add the capabilities of another class or classes to your own class, 
+without inheriting from those classes. The methods of those classes can now be called on your class, 
+and the code within those classes will execute. Dart does not have multiple inheritance, 
+but the use of mixins allows you to fold in other classes to achieve code reuse while avoiding the issues 
+that multiple inheritance would cause.
+*/
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   bool _showChart = false;
+
+  //TODO: add the observer to listen for states
+  @override
+  void initState() {
+    WidgetsBinding.instance?.addObserver(this);
+    super.initState();
+  }
+
+  //TODO method coming from WidgetsBindingObserver to listen to different App lifecycle states
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print('Application current state: $state');
+  }
+
+  //TODO: remove state observer
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
 
   //TODO: dummy transactions
   final List<Transaction> _transactions =
