@@ -112,13 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final _mediaQuery = MediaQuery.of(context);
-    final _isLandscape = _mediaQuery.orientation == Orientation.landscape;
-
-    //TODO store the appBar in a an object so we can access it later to get the height
-    final dynamic _appBar = Platform.isIOS
+  Widget _buildAppBar() {
+    return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text('Personal Expenses App'),
             trailing: Row(
@@ -146,6 +141,15 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ],
           );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final _mediaQuery = MediaQuery.of(context);
+    final _isLandscape = _mediaQuery.orientation == Orientation.landscape;
+
+    //TODO store the appBar in a an object so we can access it later to get the height
+    final dynamic _appBar = _buildAppBar();
 
     final transactionListWidget = Container(
       //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
