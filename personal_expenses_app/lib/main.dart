@@ -139,6 +139,69 @@ class _MyHomePageState extends State<MyHomePage> {
           );
   }
 
+  List<Widget> _buildPortraitView(
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget transactionListWidget,
+  ) {
+    return [
+      Container(
+        //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+        //TODO: MediaQuery.of(context).padding.top is the system status bar
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.3,
+        child: Chart(
+          recentTransactions: _recentTransactions,
+        ),
+      ),
+      transactionListWidget
+    ];
+  }
+
+  List<Widget> _buildLandscapeView(
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget transactionListWidget,
+  ) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Show Chart',
+            //TODO: this will fix an issue for iOS, not able to use cupertinoApp (instead of materialapp) because it's limited
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          /*TODO some widgets are available on Android and iOS, to have a platform look and feel, 
+                      we use adaptive constructor but it's not available for all the widgets.*/
+          Switch.adaptive(
+              activeColor: Theme.of(context).colorScheme.secondary,
+              value: _showChart,
+              onChanged: (value) {
+                setState(() {
+                  _showChart = value;
+                });
+              })
+        ],
+      ),
+      _showChart
+          ? Container(
+              //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+              //TODO: MediaQuery.of(context).padding.top is the system status bar
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(
+                recentTransactions: _recentTransactions,
+              ),
+            )
+          : transactionListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final _mediaQuery = MediaQuery.of(context);
@@ -168,53 +231,17 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               // TODO: row will be rendered only if the orientation is landscape
               if (_isLandscape)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Show Chart',
-                      //TODO: this will fix an issue for iOS, not able to use cupertinoApp (instead of materialapp) because it's limited
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    /*TODO some widgets are available on Android and iOS, to have a platform look and feel, 
-                      we use adaptive constructor but it's not available for all the widgets.*/
-                    Switch.adaptive(
-                        activeColor: Theme.of(context).colorScheme.secondary,
-                        value: _showChart,
-                        onChanged: (value) {
-                          setState(() {
-                            _showChart = value;
-                          });
-                        })
-                  ],
+                ..._buildLandscapeView(
+                  _mediaQuery,
+                  _appBar,
+                  transactionListWidget,
                 ),
               if (!_isLandscape)
-                Container(
-                  //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
-                  //TODO: MediaQuery.of(context).padding.top is the system status bar
-                  height: (_mediaQuery.size.height -
-                          _appBar.preferredSize.height -
-                          _mediaQuery.padding.top) *
-                      0.3,
-                  child: Chart(
-                    recentTransactions: _recentTransactions,
-                  ),
+                ..._buildPortraitView(
+                  _mediaQuery,
+                  _appBar,
+                  transactionListWidget,
                 ),
-              if (!_isLandscape) transactionListWidget,
-              if (_isLandscape)
-                _showChart
-                    ? Container(
-                        //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
-                        //TODO: MediaQuery.of(context).padding.top is the system status bar
-                        height: (_mediaQuery.size.height -
-                                _appBar.preferredSize.height -
-                                _mediaQuery.padding.top) *
-                            0.7,
-                        child: Chart(
-                          recentTransactions: _recentTransactions,
-                        ),
-                      )
-                    : transactionListWidget
             ]),
       ),
     );
