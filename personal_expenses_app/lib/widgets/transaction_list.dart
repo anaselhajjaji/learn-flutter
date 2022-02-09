@@ -111,12 +111,23 @@ class TransactionList extends StatelessWidget {
                     style: TextStyle(color: Colors.grey),
                   ),
                   //TODO: trailing can be used to add buttons to ListTile
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    color: Theme.of(context).errorColor,
-                    onPressed: () =>
-                        onDeleteTransaction(transactions[itemIndex].id),
-                  ),
+                  //TODO we have an example here if we want to add more elements when we have more space on the screen
+                  trailing: MediaQuery.of(context).size.width > 500
+                      ? TextButton.icon(
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Theme.of(context).errorColor)),
+                          icon: Icon(Icons.delete),
+                          label: Text('Delete'),
+                          onPressed: () =>
+                              onDeleteTransaction(transactions[itemIndex].id),
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
+                          onPressed: () =>
+                              onDeleteTransaction(transactions[itemIndex].id),
+                        ),
                 ),
               );
             },
