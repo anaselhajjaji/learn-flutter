@@ -112,8 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final _mediaQuery = MediaQuery.of(context);
+    final _isLandscape = _mediaQuery.orientation == Orientation.landscape;
 
     //TODO store the appBar in a an object so we can access it later to get the height
     final _appBar = AppBar(
@@ -131,9 +131,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final transactionListWidget = Container(
       //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
-      height: (MediaQuery.of(context).size.height -
+      height: (_mediaQuery.size.height -
           _appBar.preferredSize.height -
-          MediaQuery.of(context).padding.top),
+          _mediaQuery.padding.top),
       child: TransactionList(
         transactions: _transactions,
         onDeleteTransaction: _deleteTransaction,
@@ -168,9 +168,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
                     //TODO: MediaQuery.of(context).padding.top is the system status bar
-                    height: (MediaQuery.of(context).size.height -
+                    height: (_mediaQuery.size.height -
                             _appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
+                            _mediaQuery.padding.top) *
                         0.3,
                     child: Chart(
                       recentTransactions: _recentTransactions,
@@ -182,9 +182,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ? Container(
                           //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
                           //TODO: MediaQuery.of(context).padding.top is the system status bar
-                          height: (MediaQuery.of(context).size.height -
+                          height: (_mediaQuery.size.height -
                                   _appBar.preferredSize.height -
-                                  MediaQuery.of(context).padding.top) *
+                                  _mediaQuery.padding.top) *
                               0.7,
                           child: Chart(
                             recentTransactions: _recentTransactions,

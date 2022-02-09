@@ -12,6 +12,8 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _mediaQuery = MediaQuery.of(context);
+
     return transactions.isEmpty
         //TODO: draw a waiting image when there is no transaction, we'll use layout builder so the image height will be dynamic
         ? LayoutBuilder(builder: (ctx, constraints) {
@@ -112,7 +114,7 @@ class TransactionList extends StatelessWidget {
                   ),
                   //TODO: trailing can be used to add buttons to ListTile
                   //TODO we have an example here if we want to add more elements when we have more space on the screen
-                  trailing: MediaQuery.of(context).size.width > 500
+                  trailing: _mediaQuery.size.width > 500
                       ? TextButton.icon(
                           style: ButtonStyle(
                               foregroundColor: MaterialStateProperty.all<Color>(
