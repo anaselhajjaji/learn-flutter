@@ -13,27 +13,29 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transactions.isEmpty
-        //TODO: draw a waiting image when there is no transaction
-        ? Column(
-            children: [
-              Text(
-                'Waiting for transactions...',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              //TODO: good widget to be used to make spacing between widgets
-              SizedBox(
-                height: 20,
-              ),
-              //TODO: To include an image and respect the size of the parent container using fit property
-              Container(
-                height: 100,
-                child: Image.asset(
-                  'assets/images/waiting.png',
-                  fit: BoxFit.cover,
+        //TODO: draw a waiting image when there is no transaction, we'll use layout builder so the image height will be dynamic
+        ? LayoutBuilder(builder: (ctx, constraints) {
+            return Column(
+              children: [
+                Text(
+                  'Waiting for transactions...',
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-              )
-            ],
-          )
+                //TODO: good widget to be used to make spacing between widgets
+                SizedBox(
+                  height: 20,
+                ),
+                //TODO: To include an image and respect the size of the parent container using fit property
+                Container(
+                  height: constraints.maxHeight * 0.5,
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    fit: BoxFit.cover,
+                  ),
+                )
+              ],
+            );
+          })
         /* TODO: the list view needs to know the height and the parent container we have here will give that information to the list view.
           Two possible usages of listview:
           - ListView(children: []): will act as a scrollable column so will render all the children widgets which is not performent at all

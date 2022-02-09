@@ -61,6 +61,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _showChart = false;
+
   final List<Transaction> _transactions = [
     /* dummy transactions
     Transaction(
@@ -110,8 +112,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     //TODO store the appBar in a an object so we can access it later to get the height
-    final appBar = AppBar(
+    final _appBar = AppBar(
       title: Text(
         'Personal Expenses App',
       ),
@@ -124,8 +129,19 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    final transactionListWidget = Container(
+      //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+      height: (MediaQuery.of(context).size.height -
+          _appBar.preferredSize.height -
+          MediaQuery.of(context).padding.top),
+      child: TransactionList(
+        transactions: _transactions,
+        onDeleteTransaction: _deleteTransaction,
+      ),
+    );
+
     return Scaffold(
-        appBar: appBar,
+        appBar: _appBar,
         // This will make the view scrollable
         body: SingleChildScrollView(
           child: Column(
@@ -133,28 +149,48 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Container(
-                  //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
-                  //TODO: MediaQuery.of(context).padding.top is the system status bar
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.3,
-                  child: Chart(
-                    recentTransactions: _recentTransactions,
+                // TODO: row will be rendered only if the orientation is landscape
+                if (_isLandscape)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Show Chart'),
+                      Switch(
+                          value: _showChart,
+                          onChanged: (value) {
+                            setState(() {
+                              _showChart = value;
+                            });
+                          })
+                    ],
                   ),
-                ),
-                Container(
-                  //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.7,
-                  child: TransactionList(
-                    transactions: _transactions,
-                    onDeleteTransaction: _deleteTransaction,
+                if (!_isLandscape)
+                  Container(
+                    //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+                    //TODO: MediaQuery.of(context).padding.top is the system status bar
+                    height: (MediaQuery.of(context).size.height -
+                            _appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top) *
+                        0.3,
+                    child: Chart(
+                      recentTransactions: _recentTransactions,
+                    ),
                   ),
-                )
+                if (!_isLandscape) transactionListWidget,
+                if (_isLandscape)
+                  _showChart
+                      ? Container(
+                          //TODO: MediaQuery can be used to get the device characteristics: size, orientation ...
+                          //TODO: MediaQuery.of(context).padding.top is the system status bar
+                          height: (MediaQuery.of(context).size.height -
+                                  _appBar.preferredSize.height -
+                                  MediaQuery.of(context).padding.top) *
+                              0.7,
+                          child: Chart(
+                            recentTransactions: _recentTransactions,
+                          ),
+                        )
+                      : transactionListWidget
               ]),
         ),
         //TODO: to add floating action button
