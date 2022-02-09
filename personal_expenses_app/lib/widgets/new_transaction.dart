@@ -13,7 +13,7 @@ class NewTransaction extends StatefulWidget {
 
   /* TODO: in some scenarios a key is necessary, for example when we have a listview containing items
   When creating an item we should set the unique key so flutter won't reuse the old state when the item is deleted.
-  (key: UniqueKey()) */
+  (key: ValueKey(transaction.id)) or (key: UniqueKey()) */
   NewTransaction({Key? key, required this.onAddNewTransaction})
       : super(key: key);
 
