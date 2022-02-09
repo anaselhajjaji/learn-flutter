@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 /*TODO: the reason why StatefulWidget is used instead of Stateless 
@@ -74,6 +77,7 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
+              //TODO: we can do here Platform.isIOS to use CupertinoTextField()
               TextField(
                 decoration: InputDecoration(labelText: 'Title'),
                 controller: _titleController,
@@ -105,15 +109,25 @@ class _NewTransactionState extends State<NewTransaction> {
                           ? 'No Date Chosen'
                           : 'Picked Date: ${DateFormat.yMd().format(_selectedDate ?? DateTime.now())}'),
                     ),
-                    TextButton(
-                      onPressed: _displayDatePicker,
-                      child: Text(
-                        'Choose a date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    //TODO: use cupertino button instead of material button
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            child: Text(
+                              'Choose a date',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: _displayDatePicker)
+                        : TextButton(
+                            onPressed: _displayDatePicker,
+                            child: Text(
+                              'Choose a date',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),
