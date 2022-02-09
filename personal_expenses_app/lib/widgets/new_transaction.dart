@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 /*TODO: the reason why StatefulWidget is used instead of Stateless 
@@ -59,61 +62,80 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      //TODO: Container used to add padding (which doesn't exist in the Card)
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: _titleController,
-              onSubmitted: (_) =>
-                  _submitTransaction(), //TODO: the (_) is to tell that I know I'll have an argument but I won't use it
-              /* TODO: Can be done this way as well
-                        onChanged: (value) {
-                        titleInput = value;
-                      },*/
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              controller: _amountController,
-              keyboardType:
-                  TextInputType.number, //TODO: to have a number keyboard
-              onSubmitted: (_) =>
-                  _submitTransaction(), //TODO: the (_) is to tell that I know I'll have an argument but I won't use it
-              /*TODO: Can be done this way as well
-                        onChanged: (value) {
-                        amountInput = value;
-                      },*/
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(_selectedDate == null
-                        ? 'No Date Chosen'
-                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate ?? DateTime.now())}'),
-                  ),
-                  TextButton(
-                    onPressed: _displayDatePicker,
-                    child: Text(
-                      'Choose a date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        //TODO: Container used to add padding (which doesn't exist in the Card)
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            // TODO: to manage the soft keyboard that will appear in the bottom of the screen
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              //TODO: we can do here Platform.isIOS to use CupertinoTextField()
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: _titleController,
+                onSubmitted: (_) =>
+                    _submitTransaction(), //TODO: the (_) is to tell that I know I'll have an argument but I won't use it
+                /* TODO: Can be done this way as well
+                          onChanged: (value) {
+                          titleInput = value;
+                        },*/
               ),
-            ),
-            ElevatedButton(
-                onPressed: () => _submitTransaction(),
-                child: Text('Add Transaction'))
-          ],
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: _amountController,
+                keyboardType:
+                    TextInputType.number, //TODO: to have a number keyboard
+                onSubmitted: (_) =>
+                    _submitTransaction(), //TODO: the (_) is to tell that I know I'll have an argument but I won't use it
+                /*TODO: Can be done this way as well
+                          onChanged: (value) {
+                          amountInput = value;
+                        },*/
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(_selectedDate == null
+                          ? 'No Date Chosen'
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate ?? DateTime.now())}'),
+                    ),
+                    //TODO: use cupertino button instead of material button
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            child: Text(
+                              'Choose a date',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: _displayDatePicker)
+                        : TextButton(
+                            onPressed: _displayDatePicker,
+                            child: Text(
+                              'Choose a date',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () => _submitTransaction(),
+                  child: Text('Add Transaction'))
+            ],
+          ),
         ),
       ),
     );

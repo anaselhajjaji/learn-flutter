@@ -12,11 +12,12 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      child: transactions.isEmpty
-          //TODO: draw a waiting image when there is no transaction
-          ? Column(
+    final _mediaQuery = MediaQuery.of(context);
+
+    return transactions.isEmpty
+        //TODO: draw a waiting image when there is no transaction, we'll use layout builder so the image height will be dynamic
+        ? LayoutBuilder(builder: (ctx, constraints) {
+            return Column(
               children: [
                 Text(
                   'Waiting for transactions...',
@@ -28,22 +29,23 @@ class TransactionList extends StatelessWidget {
                 ),
                 //TODO: To include an image and respect the size of the parent container using fit property
                 Container(
-                  height: 100,
+                  height: constraints.maxHeight * 0.5,
                   child: Image.asset(
                     'assets/images/waiting.png',
                     fit: BoxFit.cover,
                   ),
                 )
               ],
-            )
-          /* TODO: the list view needs to know the height and the parent container we have here will give that information to the list view.
+            );
+          })
+        /* TODO: the list view needs to know the height and the parent container we have here will give that information to the list view.
           Two possible usages of listview:
           - ListView(children: []): will act as a scrollable column so will render all the children widgets which is not performent at all
           - ListView.builder(): will render only visible widgets and will recycle then while scrolling
           */
-          : ListView.builder(
-              itemBuilder: (ctx, itemIndex) {
-                /* OLD WAY
+        : ListView.builder(
+            itemBuilder: (ctx, itemIndex) {
+              /* OLD WAY
                 return Card(
                   child: Row(children: <Widget>[
                     Container(
@@ -82,46 +84,56 @@ class TransactionList extends StatelessWidget {
                     )
                   ]),
                 );*/
-                //TODO: NEW WAY using ListTile
-                return Card(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 5,
-                  ),
-                  elevation: 5,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(9),
-                        child: FittedBox(
-                          child: Text(
-                              '\$${transactions[itemIndex].amount.toStringAsFixed(2)}'),
-                        ),
+              //TODO: NEW WAY using ListTile
+              return Card(
+                margin: EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 5,
+                ),
+                elevation: 5,
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Padding(
+                      padding: const EdgeInsets.all(9),
+                      child: FittedBox(
+                        child: Text(
+                            '\$${transactions[itemIndex].amount.toStringAsFixed(2)}'),
                       ),
                     ),
-                    title: Text(
-                      transactions[itemIndex].title,
-                      // TODO: we can set here a font specifically to a text, we take the style from the theme
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    subtitle: Text(
-                      //TODO: I used intl package that supports a lot of date formatting patterns
-                      DateFormat.yMMMd().format(transactions[itemIndex].date),
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    //TODO: trailing can be used to add buttons to ListTile
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () =>
-                          onDeleteTransaction(transactions[itemIndex].id),
-                    ),
                   ),
-                );
-              },
-              itemCount: transactions.length,
-            ),
-    );
+                  title: Text(
+                    transactions[itemIndex].title,
+                    // TODO: we can set here a font specifically to a text, we take the style from the theme
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  subtitle: Text(
+                    //TODO: I used intl package that supports a lot of date formatting patterns
+                    DateFormat.yMMMd().format(transactions[itemIndex].date),
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  //TODO: trailing can be used to add buttons to ListTile
+                  //TODO we have an example here if we want to add more elements when we have more space on the screen
+                  trailing: _mediaQuery.size.width > 500
+                      ? TextButton.icon(
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Theme.of(context).errorColor)),
+                          icon: Icon(Icons.delete),
+                          label: Text('Delete'),
+                          onPressed: () =>
+                              onDeleteTransaction(transactions[itemIndex].id),
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
+                          onPressed: () =>
+                              onDeleteTransaction(transactions[itemIndex].id),
+                        ),
+                ),
+              );
+            },
+            itemCount: transactions.length,
+          );
   }
 }
