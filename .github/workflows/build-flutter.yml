@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container: anaselhajjaji/flutter-dev-container:1.0.0-flutter2.10.0
     steps:
-      - run: |
-          cd personal_expenses_app && flutter build apk
-        name: Build Personal Expense App for Android
+    - uses: actions/checkout@v2
+    - run: |
+       cd personal_expenses_app && flutter build apk
+       name: Build Personal Expense App for Android
