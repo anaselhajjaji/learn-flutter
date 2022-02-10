@@ -9,9 +9,8 @@ on:
 jobs:
   container:
     runs-on: ubuntu-latest
-    container: node:10.16-jessie
+    container: anaselhajjaji/flutter-dev-container:1.0.0-flutter2.10.0
     steps:
       - run: |
-          echo This job does specify a container.
-          echo It runs in the container instead of the VM.
-        name: Run in container
+          cd personal_expenses_app && flutter build apk
+        name: Build Personal Expense App for Android
