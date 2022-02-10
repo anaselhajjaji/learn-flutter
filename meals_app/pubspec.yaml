@@ -84,7 +84,7 @@ flutter:
            weight: 700
      - family: SupermercadoOne
        fonts:
-         - asset: assets/fonts/SupermercadoOne-Regular
+         - asset: assets/fonts/SupermercadoOne-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
