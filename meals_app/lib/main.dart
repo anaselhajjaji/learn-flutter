@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './category_meals_screen.dart';
 import './categories_screen.dart';
 
 void main() {
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
             ),
       ),
       home: const CategoriesScreen(),
+      //TODO: Navigation can be done using Named Routes as below, for complex apps it will be easier to manage this way
+      routes: {
+        '/categories': (ctx) => CategoryMealsScreen(),
+      },
     );
   }
 }

@@ -16,6 +16,7 @@ class CategoryItem extends StatelessWidget {
 
   void selectCategory(BuildContext ctx) {
     //TODO Navigator to be used for navigation between screens
+    /* TODO: Navigator Method 1
     Navigator.of(ctx).push(
       MaterialPageRoute(
         builder: (_) {
@@ -25,6 +26,14 @@ class CategoryItem extends StatelessWidget {
           );
         },
       ),
+    );*/
+    // TODO: Navigator Method 2 (named routes)
+    Navigator.of(ctx).pushNamed(
+      '/categories',
+      arguments: {
+        'id': id,
+        'title': title,
+      },
     );
   }
 
