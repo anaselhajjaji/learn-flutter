@@ -1,0 +1,17 @@
+name: Build Flutter Apps
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    container: anaselhajjaji/flutter-dev-container:1.0.0-flutter2.10.0
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+       cd personal_expenses_app && flutter build apk
+      name: Build Personal Expense App for Android
