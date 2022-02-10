@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/screens/favorites_screen.dart';
 
+import './favorites_screen.dart';
 import './categories_screen.dart';
 
-class TabsScreen extends StatefulWidget {
-  const TabsScreen({Key? key}) : super(key: key);
+class TopTabsScreen extends StatelessWidget {
+  const TopTabsScreen({Key? key}) : super(key: key);
 
-  @override
-  _TabsScreenState createState() => _TabsScreenState();
-}
-
-class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
-    //TODO build tabs using flutter
+    //TODO build top tabs using flutter
     return DefaultTabController(
       length: 2,
       child: Scaffold(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './screens/tabs_screen.dart';
+import './screens/bottom_tabs_screen.dart';
+import './screens/top_tabs_screen.dart';
 import './screens/meal_detail_screen.dart';
 import './screens/category_meals_screen.dart';
 import './screens/categories_screen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: theme.copyWith(
         /*TODO: this is how we set accent color, the property is deprecated in ThemeData */
         colorScheme: theme.colorScheme.copyWith(
-          secondary: Colors.orange,
+          secondary: Colors.yellow,
         ),
         textTheme: ThemeData.light().textTheme.copyWith(
               titleMedium: const TextStyle(
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
       initialRoute:
           '/', //TODO if we want to change the initial route url, default is: '/'
       routes: {
-        '/': (ctx) => const TabsScreen(),
+        '/': (ctx) =>
+            const BottomTabsScreen(), //TODO or: const TopTabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
       },
