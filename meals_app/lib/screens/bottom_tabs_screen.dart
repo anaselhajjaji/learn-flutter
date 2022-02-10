@@ -11,9 +11,9 @@ class BottomTabsScreen extends StatefulWidget {
 }
 
 class _BottomTabsScreenState extends State<BottomTabsScreen> {
-  final List<Widget> _pages = const [
-    CategoriesScreen(),
-    FavoritesScreen(),
+  final List<Map<String, Object>> _pages = const [
+    {'page': CategoriesScreen(), 'title': 'Categories'},
+    {'page': FavoritesScreen(), 'title': 'Favorite Meals'},
   ];
   int _selectedPageIndex = 0;
 
@@ -28,9 +28,9 @@ class _BottomTabsScreenState extends State<BottomTabsScreen> {
     //TODO build bottom tabs using flutter
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Best Meals App'),
+        title: Text(_pages[_selectedPageIndex]['title'] as String),
       ),
-      body: _pages[_selectedPageIndex],
+      body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.white,
