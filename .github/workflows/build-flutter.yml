@@ -2,7 +2,7 @@ name: Build Flutter Apps
 
 on:
   push:
-    branches: [ adds-github-actions ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -14,4 +14,4 @@ jobs:
     - uses: actions/checkout@v2
     - run: |
        cd personal_expenses_app && flutter build apk
-       name: Build Personal Expense App for Android
+      name: Build Personal Expense App for Android
