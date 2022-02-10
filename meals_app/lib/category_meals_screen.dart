@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
+  //TODO best practice to save the routes
+  static const routeName = '/category-meals';
+
   String? categoryId;
   String? categoryTitle;
 

@@ -35,10 +35,15 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: const CategoriesScreen(),
+      /* TODO: when adding '/', we don't need to specify home: anymore
+      home:
+          const CategoriesScreen(),*/
       //TODO: Navigation can be done using Named Routes as below, for complex apps it will be easier to manage this way
+      initialRoute:
+          '/', //TODO if we want to change the initial route url, default is: '/'
       routes: {
-        '/categories': (ctx) => CategoryMealsScreen(),
+        '/': (ctx) => const CategoriesScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
       },
     );
   }
