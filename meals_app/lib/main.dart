@@ -28,12 +28,6 @@ class MyApp extends StatelessWidget {
           secondary: Colors.orange,
         ),
         textTheme: ThemeData.light().textTheme.copyWith(
-              /*bodyText1: const TextStyle(
-                color: Color.fromRGBO(20, 51, 51, 1),
-              ),
-              bodyText2: const TextStyle(
-                color: Color.fromRGBO(20, 51, 51, 1),
-              ),*/
               titleMedium: const TextStyle(
                 fontFamily: 'SupermercadoOne',
                 color: Colors.black,
