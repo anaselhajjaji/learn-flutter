@@ -20,7 +20,7 @@ Every sample app contains some `// TODO: comment` to highlight and explain every
 - Level 1: [First basic app](./basic_flutter_app)
 - Level 2: [Personal expenses app](./personal_expenses_app)
 - Level 3: [Meals app](./meals_app)
-- ...
+- Level 4: [Shop app](./shop_app)
 
 # Some flutter notions
 
