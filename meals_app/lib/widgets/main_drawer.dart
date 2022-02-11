@@ -47,6 +47,8 @@ class MainDrawer extends StatelessWidget {
           height: 20,
         ),
         buildListTile('Meals', Icons.restaurant, () {
+          //TODO: [as a note] to go back we can use pop and we can even pass arguments back (pop(data)),
+          // to get the value we can use the return of the push() which is a Future: push().then((data) {})
           Navigator.of(context).pushReplacementNamed(
               '/'); //TODO replace the current page in the stack to avoid accumulate pages
         }),
