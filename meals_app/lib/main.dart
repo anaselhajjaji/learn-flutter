@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './screens/filters_screen.dart';
 import './screens/bottom_tabs_screen.dart';
 import './screens/top_tabs_screen.dart';
 import './screens/meal_detail_screen.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
             const BottomTabsScreen(), //TODO or: const TopTabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
+        FiltersScreen.routeName: (ctx) => const FiltersScreen(),
       },
       //TODO will be called when we try to go to a named route which is not registered
       onGenerateRoute: (settings) {
