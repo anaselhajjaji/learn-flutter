@@ -33,11 +33,14 @@ class MyApp extends StatelessWidget {
           secondary: Colors.yellow,
         ),
         textTheme: ThemeData.light().textTheme.copyWith(
-              titleMedium: const TextStyle(
-                fontFamily: 'SupermercadoOne',
-                color: Colors.black,
-              ),
+            titleMedium: const TextStyle(
+              fontFamily: 'SupermercadoOne',
+              color: Colors.black,
             ),
+            titleLarge: const TextStyle(
+              fontFamily: 'SupermercadoOne',
+              color: Colors.black,
+            )),
       ),
       /* TODO: when adding '/', we don't need to specify home: anymore
       home:
