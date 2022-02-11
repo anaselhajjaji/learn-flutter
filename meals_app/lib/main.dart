@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Meal> _availableMeals = Meal.getDummyMeals();
+  final List<Meal> _favoriteMeals = [];
 
   void _setFilters(Map<String, bool> filters) {
     setState(() {
@@ -53,6 +54,26 @@ class _MyAppState extends State<MyApp> {
         return true;
       }).toList();
     });
+  }
+
+  void _toggleFavorite(String mealId) {
+    final existingIndex =
+        _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals
+            .add(Meal.getDummyMeals().firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  bool _isMealFavorite(String mealId) {
+    return _favoriteMeals.any((meal) => meal.id == mealId);
   }
 
   final ThemeData theme =
@@ -90,12 +111,16 @@ class _MyAppState extends State<MyApp> {
       initialRoute:
           '/', //TODO if we want to change the initial route url, default is: '/'
       routes: {
-        '/': (ctx) =>
-            const BottomTabsScreen(), //TODO or: const TopTabsScreen(),
+        '/': (ctx) => BottomTabsScreen(
+              favoriteMeals: _favoriteMeals,
+            ), //TODO or: const TopTabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(
               availableMeals: _availableMeals,
             ),
-        MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(
+              favoriteHandler: _toggleFavorite,
+              checkMealFavoriteHandler: _isMealFavorite,
+            ),
         FiltersScreen.routeName: (ctx) => FiltersScreen(
               setFiltersHandler: _setFilters,
               filters: _filters,

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 
 class MealDetailScreen extends StatelessWidget {
+  final Function(String mealId) favoriteHandler;
+  final Function(String mealId) checkMealFavoriteHandler;
+
   //TODO best practice to save the routes
   static const routeName = '/meal-detail';
 
@@ -32,6 +35,8 @@ class MealDetailScreen extends StatelessWidget {
 
   const MealDetailScreen({
     Key? key,
+    required this.favoriteHandler,
+    required this.checkMealFavoriteHandler,
   }) : super(key: key);
 
   @override
@@ -91,14 +96,31 @@ class MealDetailScreen extends StatelessWidget {
         ),
       ),
       // TODO: Demonstrate passing back data
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            Icons.delete,
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+              heroTag: "floating1", //TODO to avoid the hero related exception
+              child: const Icon(
+                Icons.delete,
+              ),
+              onPressed: () {
+                //TODO: here to demonstrate how we return back a data
+                Navigator.of(context).pop(mealId);
+              }),
+          const SizedBox(
+            height: 10,
           ),
-          onPressed: () {
-            //TODO: here to demonstrate how we return back a data
-            Navigator.of(context).pop(mealId);
-          }),
+          FloatingActionButton(
+              heroTag: "floating2", //TODO to avoid the hero related exception
+              child: Icon(
+                checkMealFavoriteHandler(mealId)
+                    ? Icons.star
+                    : Icons.star_border,
+              ),
+              onPressed: () => favoriteHandler(mealId)),
+        ],
+      ),
     );
   }
 }

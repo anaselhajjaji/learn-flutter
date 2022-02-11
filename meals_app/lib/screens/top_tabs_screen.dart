@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../models/meal.dart';
 import './favorites_screen.dart';
 import './categories_screen.dart';
 
 class TopTabsScreen extends StatelessWidget {
-  const TopTabsScreen({Key? key}) : super(key: key);
+  final List<Meal> favoriteMeals;
+
+  const TopTabsScreen({
+    Key? key,
+    required this.favoriteMeals,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +35,11 @@ class TopTabsScreen extends StatelessWidget {
             ),
           ]),
         ),
-        body: const TabBarView(children: [
-          CategoriesScreen(),
-          FavoritesScreen(),
+        body: TabBarView(children: [
+          const CategoriesScreen(),
+          FavoritesScreen(
+            favoriteMeals: favoriteMeals,
+          ),
         ]),
       ),
     );
