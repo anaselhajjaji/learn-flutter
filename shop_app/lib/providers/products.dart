@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
+import './product.dart';
 
 //TODO provider that will be used to manage the state in the application
 // which is called a mixin and it is just sharing methods and properties between classes
