@@ -5,10 +5,17 @@ import '../models/meal.dart';
 
 class MealItem extends StatelessWidget {
   void selectMeal(BuildContext context) {
-    Navigator.of(context).pushNamed(
+    Navigator.of(context)
+        .pushNamed(
       MealDetailScreen.routeName,
       arguments: id,
-    );
+    )
+        //TODO: here we get back the meal ID
+        .then((mealId) {
+      if (mealId != null) {
+        removeMealHandler(mealId);
+      }
+    });
   }
 
   final String id;
@@ -17,6 +24,7 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeMealHandler;
 
   const MealItem(
       {Key? key,
@@ -26,7 +34,7 @@ class MealItem extends StatelessWidget {
       required this.duration,
       required this.complexity,
       required this.affordability,
-      imageurl})
+      required this.removeMealHandler})
       : super(key: key);
 
   String get complexityText {

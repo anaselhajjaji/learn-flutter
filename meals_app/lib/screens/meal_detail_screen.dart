@@ -30,7 +30,9 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 
-  const MealDetailScreen({Key? key}) : super(key: key);
+  const MealDetailScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,15 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+      // TODO: Demonstrate passing back data
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(
+            Icons.delete,
+          ),
+          onPressed: () {
+            //TODO: here to demonstrate how we return back a data
+            Navigator.of(context).pop(mealId);
+          }),
     );
   }
 }
