@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import './providers/products.dart';
+import './screens/product_detail_screen.dart';
 import './screens/products_overview_screen.dart';
 
 void main() {
@@ -19,15 +22,24 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.purple,
             fontFamily: GoogleFonts.rowdies().fontFamily);
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: theme.copyWith(
-        /*TODO: this is how we set accent color, the property is deprecated in ThemeData */
-        colorScheme: theme.colorScheme.copyWith(
-          secondary: Colors.deepOrange,
+    //TODO return ChangeNotifierProvider that wraps traditional MaterialApp(), the provider should
+    // be registered at highest point possible but it doesnt mean that all the app will be rebuilt,
+    // only the widgets that are listening will be rebuilt
+    return ChangeNotifierProvider(
+      create: (ctx) => Products(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: theme.copyWith(
+          /*TODO: this is how we set accent color, the property is deprecated in ThemeData */
+          colorScheme: theme.colorScheme.copyWith(
+            secondary: Colors.deepOrange,
+          ),
         ),
+        home: ProductsOverviewScreen(),
+        routes: {
+          ProductDetailsScreen.routeName: (ctx) => const ProductDetailsScreen(),
+        },
       ),
-      home: ProductsOverviewScreen(),
     );
   }
 }
