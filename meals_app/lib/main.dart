@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './models/meal.dart';
 import './screens/filters_screen.dart';
 import './screens/bottom_tabs_screen.dart';
 import './screens/top_tabs_screen.dart';
@@ -11,7 +12,49 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  //TODO a method for managing the state of the app
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegetarian': false,
+  };
+
+  List<Meal> _availableMeals = Meal.getDummyMeals();
+
+  void _setFilters(Map<String, bool> filters) {
+    setState(() {
+      _filters = filters;
+
+      _availableMeals = Meal.getDummyMeals().where((meal) {
+        if (_filters['gluten']! && !meal.isGlutenFree) {
+          return false;
+        }
+
+        if (_filters['lactose']! && !meal.isLactoseFree) {
+          return false;
+        }
+
+        if (_filters['vegetarian']! && !meal.isVegetarian) {
+          return false;
+        }
+
+        if (_filters['vegan']! && !meal.isVegan) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
+
   final ThemeData theme =
       /*TODO: we need to use primarySwatch instead of primaryColor 
           because primary swatch will generate the other colors coming from primary color */
@@ -20,8 +63,6 @@ class MyApp extends StatelessWidget {
     canvasColor: const Color.fromRGBO(255, 254, 229, 1),
     fontFamily: 'Rowdies',
   );
-
-  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +92,14 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (ctx) =>
             const BottomTabsScreen(), //TODO or: const TopTabsScreen(),
-        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(
+              availableMeals: _availableMeals,
+            ),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
-        FiltersScreen.routeName: (ctx) => const FiltersScreen(),
+        FiltersScreen.routeName: (ctx) => FiltersScreen(
+              setFiltersHandler: _setFilters,
+              filters: _filters,
+            ),
       },
       //TODO will be called when we try to go to a named route which is not registered
       onGenerateRoute: (settings) {

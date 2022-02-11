@@ -4,12 +4,13 @@ import '../widgets/meal_item.dart';
 import '../models/meal.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
+  final List<Meal> availableMeals;
+
   //TODO best practice to save the routes
   static const routeName = '/category-meals';
 
-  CategoryMealsScreen({
-    Key? key,
-  }) : super(key: key);
+  CategoryMealsScreen({Key? key, required this.availableMeals})
+      : super(key: key);
 
   @override
   State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
@@ -38,7 +39,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       final categoryId = routeArgs['id'];
       categoryTitle = routeArgs['title'];
 
-      displayedMeals = Meal.getDummyMeals().where((meal) {
+      displayedMeals = widget.availableMeals.where((meal) {
         return meal.categories.contains(categoryId);
       }).toList();
       _loadedInitData = true;
