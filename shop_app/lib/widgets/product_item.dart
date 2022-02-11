@@ -36,7 +36,7 @@ class ProductItem extends StatelessWidget {
         ),
         //TODO here we update only the footer part
         // The child is a constant widget that we can pass to consumer using child:
-        // and it will just pass it back to us in the builder
+        // and it will just pass it back to us in the builder without rebuilding it, it's an optimization
         footer: Consumer<Product>(
           builder: (context, product, child) => GridTileBar(
             backgroundColor: Colors.black87,
