@@ -13,29 +13,32 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     //TODO the common way to retrieve the product from provider,
     // here in the file we use another way using Consumer()
-    // final product = Provider.of<Product>(context);
+    final firstLoadedProduct = Provider.of<Product>(context, listen: false);
 
     //TODO the advantage of the Consumer is that we can add it in a place in
     // the widget tree and it won't rebuild all the tree but only the subtree
-    return Consumer<Product>(
-      builder: (ctx, product, child) => ClipRRect(
-        //TODO wil help us to have rounded conrners
-        borderRadius: BorderRadius.circular(10),
-        //TODO a nice widget that can be used particularly in Grids
-        child: GridTile(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(
-                ProductDetailsScreen.routeName,
-                arguments: product.id,
-              );
-            },
-            child: Image.network(
-              product.imageUrl,
-              fit: BoxFit.cover,
-            ),
+    return ClipRRect(
+      //TODO wil help us to have rounded conrners
+      borderRadius: BorderRadius.circular(10),
+      //TODO a nice widget that can be used particularly in Grids
+      child: GridTile(
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              ProductDetailsScreen.routeName,
+              arguments: firstLoadedProduct.id,
+            );
+          },
+          child: Image.network(
+            firstLoadedProduct.imageUrl,
+            fit: BoxFit.cover,
           ),
-          footer: GridTileBar(
+        ),
+        //TODO here we update only the footer part
+        // The child is a constant widget that we can pass to consumer using child:
+        // and it will just pass it back to us in the builder
+        footer: Consumer<Product>(
+          builder: (context, product, child) => GridTileBar(
             backgroundColor: Colors.black87,
             leading: IconButton(
               icon: Icon(
