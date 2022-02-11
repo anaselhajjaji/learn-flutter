@@ -16,9 +16,12 @@ class ProductsGrid extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(10),
       itemCount: products.length,
-      itemBuilder: (ctx, index) => ChangeNotifierProvider(
-        create: (ctx) => products[index],
-        child: ProductItem(),
+      //TODO ChangeNotifierProvider.value() is the one to be used when we're in a list
+      // to make sure that the provider is attached / detached to the item, it will avoid widgets recycling issues
+      // Note: Cleanup will be done automatically when we leave the screen, no need to clean ourselves
+      itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
+        value: products[index],
+        child: const ProductItem(),
       ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

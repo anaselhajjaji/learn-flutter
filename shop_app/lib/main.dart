@@ -25,6 +25,10 @@ class MyApp extends StatelessWidget {
     //TODO return ChangeNotifierProvider that wraps traditional MaterialApp(), the provider should
     // be registered at highest point possible but it doesnt mean that all the app will be rebuilt,
     // only the widgets that are listening will be rebuilt
+    // return ChangeNotifierProvider.value(
+    // value: Products(),
+    // OR
+    // Recommended (best practice) this way (more efficient - we don't have reuse here vs the list items):
     return ChangeNotifierProvider(
       create: (ctx) => Products(),
       child: MaterialApp(
