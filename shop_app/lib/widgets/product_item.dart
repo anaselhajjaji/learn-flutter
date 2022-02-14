@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/cart.dart';
 import '../providers/product.dart';
 import '../screens/product_detail_screen.dart';
 
@@ -14,6 +15,7 @@ class ProductItem extends StatelessWidget {
     //TODO the common way to retrieve the product from provider,
     // here in the file we use another way using Consumer()
     final firstLoadedProduct = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
 
     //TODO the advantage of the Consumer is that we can add it in a place in
     // the widget tree and it won't rebuild all the tree but only the subtree
@@ -54,7 +56,9 @@ class ProductItem extends StatelessWidget {
             ),
             trailing: IconButton(
               icon: const Icon(Icons.shopping_cart),
-              onPressed: () {},
+              onPressed: () {
+                cart.addItem(product.id, product.price, product.title);
+              },
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
