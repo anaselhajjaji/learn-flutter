@@ -18,3 +18,6 @@ jobs:
     - run: |
        cd meals_app && flutter build apk
       name: Build Meals App for Android
+    - run: |
+       cd shop_app && flutter build apk
+      name: Build Shop App for Android
