@@ -27,7 +27,8 @@ class Products with ChangeNotifier {
     //TODO http post example
     final url = Uri.parse(
         'https://flutter-shop-app-1e327-default-rtdb.firebaseio.com/products.json');
-    http.post(
+    http
+        .post(
       url,
       body: json.encode(
         {
@@ -38,18 +39,21 @@ class Products with ChangeNotifier {
           'isFavorite': product.isFavorite,
         },
       ),
-    );
+    )
+        .then(
+      (response) {
+        final newProduct = Product(
+          id: json.decode(response.body)['name'], //get the id from the server
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl,
+        );
 
-    final newProduct = Product(
-      id: DateTime.now().toString(),
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
+        _items.add(newProduct);
+        notifyListeners();
+      },
     );
-
-    _items.add(newProduct);
-    notifyListeners();
   }
 
   void updateProduct(String id, Product product) {
