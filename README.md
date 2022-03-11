@@ -114,3 +114,20 @@ void main() {
     print('This will be first as well, before future');
 }
 ```
+
+we can use async await which is more readable and it's the same thing.
+
+```dart
+void main() async {
+    var aFuture = Future(() {
+        return 'Future';
+    });
+    print('This will be printed first.');
+    try {
+        final res = await aFuture;
+        print(res);
+    }
+    catch(error) {}
+    print('This will be first as well, before future');
+}
+```

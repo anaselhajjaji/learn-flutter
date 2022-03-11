@@ -23,41 +23,42 @@ class Products with ChangeNotifier {
     return _items.where((product) => product.isFavorite).toList();
   }
 
-  Future<void> addProduct(Product product) {
+  // TODO in order to use async await, add async keyword
+  Future<void> addProduct(Product product) async {
     //TODO http post example
     final url = Uri.parse(
         'https://flutter-shop-app-1e327-default-rtdb.firebaseio.com/products.json');
-    return http
-        .post(
-      url,
-      body: json.encode(
-        {
-          'title': product.title,
-          'description': product.description,
-          'imageUrl': product.imageUrl,
-          'price': product.price,
-          'isFavorite': product.isFavorite,
-        },
-      ),
-    )
-        .then(
-      (response) {
-        final newProduct = Product(
-          id: json.decode(response.body)['name'], //get the id from the server
-          title: product.title,
-          description: product.description,
-          price: product.price,
-          imageUrl: product.imageUrl,
-        );
 
-        _items.add(newProduct);
-        notifyListeners();
-      },
-    ).catchError((error) {
+    // TODO instead of returning a future, we can use await keyword
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'title': product.title,
+            'description': product.description,
+            'imageUrl': product.imageUrl,
+            'price': product.price,
+            'isFavorite': product.isFavorite,
+          },
+        ),
+      );
+
+      final newProduct = Product(
+        id: json.decode(response.body)['name'], //get the id from the server
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      );
+
+      _items.add(newProduct);
+      notifyListeners();
+    } catch (error) {
       // TODO I'll catch it here and rethrow it to be catched later
       print(error);
-      throw error;
-    });
+      rethrow;
+    }
   }
 
   void updateProduct(String id, Product product) {
