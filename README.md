@@ -93,3 +93,24 @@ var person2 = Person.veryOld('Mike');
 Both can't change and the difference is: 
 - const: compiled time constant, locked at the moment when writing the code
 - final: It's a runtime constant value, it can be initialized after declaration (in constructor for example), locked once initialized at runtime
+
+## Futures
+
+dart executes synchronous code first then goes back to the futures then() functions. 
+
+Note that, then() and catchError() return a future as well so we can have (chaining): `future.then().then()`
+
+Below an example:
+
+```dart
+void main() {
+    var aFuture = Future(() {
+        return 'Future';
+    });
+    print('This will be printed first.');
+    aFuture
+        .then((res) => print(res))
+        .catchError((err) {});
+    print('This will be first as well, before future');
+}
+```
