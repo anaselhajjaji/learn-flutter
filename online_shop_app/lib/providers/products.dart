@@ -53,7 +53,11 @@ class Products with ChangeNotifier {
         _items.add(newProduct);
         notifyListeners();
       },
-    );
+    ).catchError((error) {
+      // TODO I'll catch it here and rethrow it to be catched later
+      print(error);
+      throw error;
+    });
   }
 
   void updateProduct(String id, Product product) {
