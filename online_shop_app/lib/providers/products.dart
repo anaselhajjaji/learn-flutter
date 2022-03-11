@@ -8,7 +8,9 @@ import './product.dart';
 // which is called a mixin and it is just sharing methods and properties between classes
 // without strong relation between them (inheritence for example)
 class Products with ChangeNotifier {
-  List<Product> _items = Product.getDummyProducts();
+  //TODO if we want to display dummy products
+  //List<Product> _items = Product.getDummyProducts();
+  List<Product> _items = [];
 
   List<Product> get items {
     // TODO return the copy of the items
@@ -21,6 +23,31 @@ class Products with ChangeNotifier {
 
   List<Product> get favoriteItems {
     return _items.where((product) => product.isFavorite).toList();
+  }
+
+  Future<void> fetchProducts() async {
+    final url = Uri.parse(
+        'https://flutter-shop-app-1e327-default-rtdb.firebaseio.com/products.json');
+
+    try {
+      final response = await http.get(url);
+      final decodedData = jsonDecode(response.body) as Map<String, dynamic>;
+      final List<Product> loadedProducts = [];
+      decodedData.forEach((prodId, prodData) {
+        loadedProducts.add(Product(
+          id: prodId,
+          title: prodData['title'],
+          description: prodData['description'],
+          price: prodData['price'],
+          isFavorite: prodData['isFavorite'],
+          imageUrl: prodData['imageUrl'],
+        ));
+      });
+      _items = loadedProducts;
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
   }
 
   // TODO in order to use async await, add async keyword
