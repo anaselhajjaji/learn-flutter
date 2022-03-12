@@ -97,7 +97,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
     //TODO Here we have a complete product object
     if (_editedProduct.id.isNotEmpty) {
-      Provider.of<Products>(context, listen: false)
+      await Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
     } else {
       try {
@@ -118,13 +118,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ],
           ),
         );
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-        Navigator.of(context).pop();
       }
     }
+
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pop();
   }
 
   @override
